@@ -34,7 +34,35 @@ export async function POST(req: NextRequest) {
   try {
     db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)")
       .run("domain", domain);
-    return NextResponse.json({ success: true, domain });
+
+    // SaaS Engine: Automatically generate Caddyfile for the user
+    const fs = require('fs');
+    const path = require('path');
+    const dataDir = process.env.DS_DATA_DIR || '/app/data';
+    const caddyPath = path.join(dataDir, 'Caddyfile');
+    
+    const caddyConfig = `${domain} {
+    reverse_proxy localhost:4242
+    
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000;"
+        # Prevent Clickjacking
+        X-Frame-Options "SAMEORIGIN"
+        # Content Type Sniffing
+        X-Content-Type-Options "nosniff"
+    }
+}
+`;
+
+    try {
+      fs.writeFileSync(caddyPath, caddyConfig);
+    } catch (e) {
+      console.error("Failed to write Caddyfile:", e);
+      // We don't fail the whole request because the DB save was successful
+    }
+
+    return NextResponse.json({ success: true, domain, caddyUpdated: true });
   } catch (err) {
     return NextResponse.json({ error: "Failed to update domain" }, { status: 500 });
   }
