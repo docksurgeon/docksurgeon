@@ -94,5 +94,11 @@ echo "  ${GREEN}🚀 DockSurgeon is ready for surgery!${NC}"
 echo "  --------------------------------------------------------------"
 echo ""
 
+# Start the internal Caddy proxy for SaaS SSL management
+if [ -f "/app/data/Caddyfile" ]; then
+    log "🚀 Starting internal SaaS Proxy (Caddy)..."
+    caddy start --config /app/data/Caddyfile --adapter caddyfile > /dev/null 2>&1 || log "⚠️  Caddy failed to start (likely port conflict)"
+fi
+
 # Start the Next.js app
 exec "$@"

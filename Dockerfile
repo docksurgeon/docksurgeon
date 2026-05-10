@@ -27,7 +27,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN apk add --no-cache procps shadow util-linux
+# Install Caddy for professional SaaS SSL management
+RUN apk add --no-cache procps shadow util-linux caddy
 
 # Create nodejs group + nextjs user
 RUN addgroup -g 1001 -S nodejs && \
@@ -43,13 +44,15 @@ COPY --from=builder /app/public ./public
 
 RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
 
-# Copy entrypoint script for smart port detection
+# Copy entrypoint script
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN chmod +x /app/docker-entrypoint.sh
 
+# The app now manages its own ports via Caddy/Next
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["node", "server.js"]
+

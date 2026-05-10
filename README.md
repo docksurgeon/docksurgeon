@@ -29,38 +29,13 @@ Your server is running out of disk space. You know Docker is the culprit, but fi
 
 ---
 
-### 🚀 Quick Start (Production)
-
-#### 🛠️ Option 1: Docker Compose (Recommended)
-This is the easiest way to keep your server clean and organized.
+### 🚀 The "Effortless" Install
+This single command handles everything: IP detection, port discovery, and automated SSL/Domain setup.
 
 ```bash
-# 1. Download the compose file
-curl -fsSL https://raw.githubusercontent.com/docksurgeon/docksurgeon/main/docker-compose.yml -o docker-compose.yml
-
-# 2. Start the surgery
-export NEXTAUTH_SECRET=$(openssl rand -base64 48)
-docker compose up -d
+curl -fsSL https://raw.githubusercontent.com/docksurgeon/docksurgeon/main/install.sh | bash
 ```
-🌐 Access at `http://your-server-ip:4242`
-
-#### 🐳 Option 2: One-Line Docker Run
-If you just want to run it once without a file:
-
-```bash
-docker run -d \
-  --name docksurgeon \
-  --restart unless-stopped \
-  --pid host \
-  --privileged \
-  -p 4242:3000 \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v docksurgeon-data:/app/data \
-  -e NEXTAUTH_URL="http://$(curl -s ifconfig.me):4242" \
-  -e NEXTAUTH_SECRET="$(openssl rand -base64 32)" \
-  -e NODE_ENV=production \
-  ghcr.io/docksurgeon/docksurgeon:main
-```
+🌐 **That's it.** The installer will give you your access links and handle SSL configuration automatically.
 
 ---
 
