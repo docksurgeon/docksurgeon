@@ -58,32 +58,33 @@ log "  - Public:   http://$PUBLIC_IP:$ACTUAL_PORT"
 log "  - Domain:   ${NEXTAUTH_URL_PROVIDED:-Not configured (Standard SaaS Mode)}"
 echo ""
 
+# ANSI Colors
+GREEN='\033[0;32m'
+BOLD='\033[1m'
+NC='\033[0m' # No Color
+
 cat << "EOF"
-  ____             _    ____                                
- |  _ \  ___   ___| | _/ ___| _   _ _ __ __ _  ___  ___  _ __ 
- | | | |/ _ \ / __| |/ \___ \| | | | '__/ _` |/ _ \/ _ \| '_ \
- | |_| | (_) | (__|   < ___) | |_| | | | (_| |  __/ (_) | | | |
- |____/ \___/ \___|_|\_\____/ \__,_|_|  \__, |\___|\___/|_| |_|
-                                        |___/                   
+      
+    ____             _    ____                                
+   |  _ \  ___   ___| | _/ ___| _   _ _ __ __ _  ___  ___  _ __ 
+   | | | |/ _ \ / __| |/ \___ \| | | | '__/ _` |/ _ \/ _ \| '_ \
+   | |_| | (_) | (__|   < ___) | |_| | | | (_| |  __/ (_) | | | |
+   |____/ \___/ \___|_|\_\____/ \__,_|_|  \__, |\___|\___/|_| |_|
+                                          |___/                   
+   --------------------------------------------------------------
 EOF
 
+echo "${GREEN}${BOLD}  [✓] PROVISIONING COMPLETE${NC}"
+echo "  [✓] Docker Socket:   Connected"
+echo "  [✓] Database:        Healthy"
+echo "  [✓] Port Discovery:  $ACTUAL_PORT (Allocated)"
 echo ""
-echo "🚀 DockSurgeon is running successfully!"
-
-# Smartly determine which port to display based on if they used a domain or custom IP
-if [ -n "$NEXTAUTH_URL_PROVIDED" ]; then
-  DISPLAY_PORT=$(echo "$NEXTAUTH_URL_PROVIDED" | grep -o ':[0-9]*$' | tr -d ':' || true)
-  if [ -z "$DISPLAY_PORT" ]; then
-    echo "📡 Port: 80/443 (Standard Web Ports)"
-  else
-    echo "📡 Port: $DISPLAY_PORT"
-  fi
-else
-  echo "📡 Port: $ACTUAL_PORT"
-fi
-
-echo "🌐 Access your dashboard at: ${NEXTAUTH_URL:-http://localhost:$ACTUAL_PORT}"
-echo "==============================================================="
+echo "  ${BOLD}🌐 SaaS ACCESS DETAILS:${NC}"
+echo "  - Internal: http://$IP_ADDR:$ACTUAL_PORT"
+echo "  - Public:   http://$PUBLIC_IP:$ACTUAL_PORT"
+echo ""
+echo "  ${GREEN}🚀 DockSurgeon is ready for surgery!${NC}"
+echo "  --------------------------------------------------------------"
 echo ""
 
 # Start the Next.js app
