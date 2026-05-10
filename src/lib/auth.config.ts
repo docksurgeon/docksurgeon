@@ -11,6 +11,11 @@ export const authConfig = {
     signIn: "/login",
   },
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      // SaaS Logic: Always prefer the current URL's origin to avoid localhost redirects
+      if (url.startsWith("/")) return `${new URL(url, baseUrl).origin}${url}`;
+      return url;
+    },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isPublic = PUBLIC_PATHS.some((p) => nextUrl.pathname.startsWith(p));
