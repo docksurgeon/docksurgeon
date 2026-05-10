@@ -55,7 +55,7 @@ echo -e "   ✅ Old containers cleared"
 
 # 4. Pull Latest Image
 echo -e "\n⬇️  ${BOLD}Downloading Latest Update${NC}"
-if ! docker pull ghcr.io/docksurgeon/docksurgeon:latest; then
+if ! docker pull ghcr.io/docksurgeon/docksurgeon:main; then
     echo -e "\n❌ ${BOLD}Failed to download image!${NC}"
     echo "This may be because the image doesn't exist yet, is private, or due to network issues."
     exit 1
@@ -79,7 +79,7 @@ docker run -d \
   -e AUTH_TRUST_HOST=true \
   -e NEXTAUTH_SECRET="$NEXTAUTH_SECRET" \
   -e NODE_ENV=production \
-  ghcr.io/docksurgeon/docksurgeon:latest >/dev/null
+  ghcr.io/docksurgeon/docksurgeon:main >/dev/null
 
 echo -e "   ✅ Container deployed successfully!"
 
