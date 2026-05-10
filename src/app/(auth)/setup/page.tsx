@@ -51,8 +51,14 @@ export default function SetupPage() {
               onChange={(e) => setEmail(e.target.value)}
               required autoFocus
               style={inputStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#383838")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "#222222")}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = GREEN;
+                e.currentTarget.style.boxShadow = `0 0 0 3px rgba(62, 207, 142, 0.15)`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "#222222";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             />
           </Field>
           <Field label="Password">
@@ -63,8 +69,14 @@ export default function SetupPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               style={inputStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#383838")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "#222222")}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = GREEN;
+                e.currentTarget.style.boxShadow = `0 0 0 3px rgba(62, 207, 142, 0.15)`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "#222222";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             />
           </Field>
           <Field label="Confirm password">
@@ -75,8 +87,14 @@ export default function SetupPage() {
               onChange={(e) => setConfirm(e.target.value)}
               required
               style={inputStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#383838")}
-              onBlur={(e) => (e.currentTarget.style.borderColor = "#222222")}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = GREEN;
+                e.currentTarget.style.boxShadow = `0 0 0 3px rgba(62, 207, 142, 0.15)`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "#222222";
+                e.currentTarget.style.boxShadow = "none";
+              }}
             />
           </Field>
 
@@ -89,7 +107,16 @@ export default function SetupPage() {
           <button
             type="submit"
             disabled={loading}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", width: "100%", background: GREEN, color: "#0a1a12", border: "none", borderRadius: "8px", padding: "10px 16px", fontSize: "13px", fontWeight: 600, marginTop: "4px", cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 }}
+            className="hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+            style={{ 
+              display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", 
+              width: "100%", 
+              background: "linear-gradient(135deg, #3ecf8e 0%, #2bb87a 100%)", 
+              boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.2), 0 2px 8px rgba(62, 207, 142, 0.2)",
+              color: "#0a1a12", border: "none", borderRadius: "8px", padding: "10px 16px", 
+              fontSize: "13px", fontWeight: 600, marginTop: "8px", 
+              cursor: loading ? "not-allowed" : "pointer", opacity: loading ? 0.7 : 1 
+            }}
           >
             {loading && <SpinnerCss color="#0a1a12" size={13} />}
             {loading ? "Creating account..." : "Create account"}
@@ -122,11 +149,13 @@ const pageStyle: React.CSSProperties = {
 const cardStyle: React.CSSProperties = {
   width: "100%",
   maxWidth: "360px",
-  background: "#111111",
-  border: "1px solid #1f1f1f",
-  borderRadius: "12px",
-  padding: "24px",
-  boxShadow: "0 0 0 1px rgba(0,0,0,0.3), 0 8px 40px rgba(0,0,0,0.4)",
+  background: "rgba(17, 17, 17, 0.6)",
+  backdropFilter: "blur(16px)",
+  WebkitBackdropFilter: "blur(16px)",
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+  borderRadius: "16px",
+  padding: "32px 28px",
+  boxShadow: "0 0 0 1px rgba(0,0,0,0.3), 0 12px 48px rgba(0,0,0,0.5)",
 };
 
 const inputStyle: React.CSSProperties = {
