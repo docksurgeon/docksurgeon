@@ -17,7 +17,7 @@ cat << "EOF"
    |____/ \___/ \___|_|\_\____/ \__,_|_|  \__, |\___|\___/|_| |_|
                                           |___/                   
 EOF
-echo -e "${CYAN}${BOLD}   DockSurgeon Installer (MVP Edition)${NC}"
+echo -e "${CYAN}${BOLD}   DockSurgeon Installer${NC}"
 echo "   --------------------------------------------------------------"
 echo ""
 
@@ -42,8 +42,13 @@ echo -e "\n🧹 ${BOLD}Preparing Environment${NC}"
 docker rm -f docksurgeon >/dev/null 2>&1 || true
 echo -e "   ✅ Old containers cleared"
 
-# 4. Launch
-echo -e "\n🚀 ${BOLD}Deploying DockSurgeon MVP${NC}"
+# 4. Pull Latest Image
+echo -e "\n⬇️  ${BOLD}Downloading Latest Update${NC}"
+docker pull ghcr.io/docksurgeon/docksurgeon:main >/dev/null 2>&1
+echo -e "   ✅ Latest image pulled"
+
+# 5. Launch
+echo -e "\n🚀 ${BOLD}Deploying DockSurgeon${NC}"
 echo -e "   📦 Mounting: Docker Socket (/var/run/docker.sock)"
 echo -e "   💾 Mounting: Persistent Data (docksurgeon-data)"
 echo -e "   🔌 Binding:  Port 4242\n"

@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker Image](https://img.shields.io/badge/Docker-ghcr.io-blue?logo=docker)](https://github.com/docksurgeon/docksurgeon/pkgs/container/docksurgeon)
 
-<img src="public/logo/logo-with-name.png" width="450" alt="DockSurgeon Logo" />
+<img src="public/logo/logo-with-name.png" width="250" alt="DockSurgeon Logo" />
 
 </div>
 
@@ -29,25 +29,19 @@ Your server is running out of disk space. You know Docker is the culprit, but fi
 
 ---
 
-### 🚀 The "Effortless" Install
-This single command handles everything: IP detection, port discovery, and automated SSL/Domain setup.
+### 🚀 Quick Install (Recommended)
+This single `curl` command handles everything: pulling the latest image, generating security tokens, and starting the dashboard on port 4242.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/docksurgeon/docksurgeon/main/install.sh | bash
 ```
-🌐 **That's it.** The installer will give you your access links and handle SSL configuration automatically.
+🌐 **That's it.** The installer will print your access link and you're good to go!
 
 ---
 
 ### 🔄 Staying Up to Date
-Updating is simple. If you used the `docker run` method, we recommend creating an `update.sh` script:
-
-```bash
-# Pull the latest image and restart
-docker pull ghcr.io/docksurgeon/docksurgeon:main
-docker rm -f docksurgeon
-# (Run your docker run command again)
-```
+Updating is completely effortless. Just run the exact same `curl` command you used to install it! 
+The script will automatically safely remove the old version, download the newest update, and restart your dashboard.
 
 ---
 
