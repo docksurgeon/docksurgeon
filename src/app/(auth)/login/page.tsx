@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { Logo } from "@/components/logo";
 
 const GREEN = "#3ecf8e";
 
@@ -141,12 +142,8 @@ const inputStyle: React.CSSProperties = {
 
 function BrandHeader() {
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "32px" }}>
-      <img
-        src="/logo/logo-with-name.png"
-        alt="DockSurgeon"
-        style={{ height: "36px", width: "auto", objectFit: "contain" }}
-      />
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "40px" }}>
+      <Logo size={60} />
     </div>
   );
 }
