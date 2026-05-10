@@ -4,6 +4,9 @@ const PUBLIC_PATHS = ["/login", "/setup", "/api/auth", "/api/setup"];
 
 export const authConfig = {
   trustHost: true,
+  // Ensure the app can be accessed from both IP and custom domains
+  // by trusting the incoming Host header.
+
   pages: {
     signIn: "/login",
   },

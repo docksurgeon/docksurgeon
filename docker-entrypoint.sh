@@ -48,17 +48,14 @@ else
   export DS_PORT=$ACTUAL_PORT
 fi
 
-# Set NEXTAUTH_URL if not explicitly provided
-if [ -z "$NEXTAUTH_URL_PROVIDED" ]; then
-  export NEXTAUTH_URL="http://localhost:$ACTUAL_PORT"
-  log "ℹ️  NEXTAUTH_URL set to: $NEXTAUTH_URL"
-else
-  log "ℹ️  Using provided NEXTAUTH_URL: $NEXTAUTH_URL_PROVIDED"
-fi
+# Determine links for the user
+IP_ADDR=$(hostname -i | awk '{print $1}')
+PUBLIC_IP=$(curl -s --connect-timeout 2 ifconfig.me || echo "your-server-ip")
 
 log "Configuration complete:"
-log "  - Port: $ACTUAL_PORT"
-log "  - NEXTAUTH_URL: ${NEXTAUTH_URL:-not set}"
+log "  - Internal: http://$IP_ADDR:$ACTUAL_PORT"
+log "  - Public:   http://$PUBLIC_IP:$ACTUAL_PORT"
+log "  - Domain:   ${NEXTAUTH_URL_PROVIDED:-Not configured (Standard SaaS Mode)}"
 echo ""
 
 cat << "EOF"
