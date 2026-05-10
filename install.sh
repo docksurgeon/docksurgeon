@@ -23,10 +23,21 @@ echo ""
 
 # 1. Detect environment
 echo -e "🔍 ${BOLD}System Check${NC}"
+
+# Check if Docker is installed
+if ! command -v docker >/dev/null 2>&1; then
+    echo -e "   ❌ ${BOLD}Docker is not installed!${NC}"
+    echo "   DockSurgeon requires Docker to run."
+    echo "   Please install Docker first by running:"
+    echo -e "   ${CYAN}curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh${NC}"
+    exit 1
+fi
+echo -e "   ✅ Docker is installed"
+
 PUBLIC_IP=$(curl -s --connect-timeout 2 https://checkip.amazonaws.com || curl -s --connect-timeout 2 ifconfig.me || echo "unknown")
 echo -e "   📡 Detected IP: ${GREEN}$PUBLIC_IP${NC}"
 
-if lsof -i:80 > /dev/null 2>&1; then
+if command -v lsof >/dev/null 2>&1 && lsof -i:80 > /dev/null 2>&1; then
     echo -e "   ⚠️  Port 80 busy: DockSurgeon will run on ${BOLD}Port 4242${NC} only."
 else
     echo -e "   ✅ Port 80 free: Available for future routing."
@@ -44,7 +55,11 @@ echo -e "   ✅ Old containers cleared"
 
 # 4. Pull Latest Image
 echo -e "\n⬇️  ${BOLD}Downloading Latest Update${NC}"
-docker pull ghcr.io/docksurgeon/docksurgeon:main >/dev/null 2>&1
+if ! docker pull ghcr.io/docksurgeon/docksurgeon:latest; then
+    echo -e "\n❌ ${BOLD}Failed to download image!${NC}"
+    echo "This may be because the image doesn't exist yet, is private, or due to network issues."
+    exit 1
+fi
 echo -e "   ✅ Latest image pulled"
 
 # 5. Launch
@@ -64,7 +79,7 @@ docker run -d \
   -e AUTH_TRUST_HOST=true \
   -e NEXTAUTH_SECRET="$NEXTAUTH_SECRET" \
   -e NODE_ENV=production \
-  ghcr.io/docksurgeon/docksurgeon:main >/dev/null
+  ghcr.io/docksurgeon/docksurgeon:latest >/dev/null
 
 echo -e "   ✅ Container deployed successfully!"
 
