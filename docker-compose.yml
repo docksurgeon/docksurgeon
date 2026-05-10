@@ -1,0 +1,26 @@
+services:
+  docksurgeon:
+    image: ghcr.io/karansharma1732/docksurgeon:latest
+    container_name: docksurgeon
+    restart: unless-stopped
+    ports:
+      - "${DS_PORT:-4242}:3000"
+    pid: host
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # ⚠️  IMPORTANT: Data volume for database persistence
+      # Contains: admin password, settings, audit logs
+      # DO NOT DELETE: docker volume rm docksurgeon-data
+      # This volume persists across updates automatically
+      - docksurgeon-data:/app/data
+    environment:
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:4242}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:?NEXTAUTH_SECRET is required}
+      - NODE_ENV=production
+
+volumes:
+  # ⚠️  CRITICAL: Contains database with passwords and settings
+  # Automatically persists across container restarts and updates
+  # Backup: docker cp docksurgeon:/app/data/surgeon.db ./backup.db
+  docksurgeon-data:
