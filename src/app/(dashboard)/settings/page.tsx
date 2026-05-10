@@ -24,14 +24,9 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [pwError, setPwError] = useState("");
   const [pwSuccess, setPwSuccess] = useState(false);
-  const [domain, setDomain] = useState("");
-  const [savingDomain, setSavingDomain] = useState(false);
-  const [domainError, setDomainError] = useState("");
-  const [domainSuccess, setDomainSuccess] = useState(false);
 
   useEffect(() => {
     fetch("/api/settings/info").then((r) => r.json()).then(setInfo);
-    fetch("/api/settings/domain").then((r) => r.json()).then((data) => setDomain(data.domain || ""));
   }, []);
 
   async function handlePasswordChange(e: React.FormEvent) {
@@ -59,30 +54,6 @@ export default function SettingsPage() {
     }
   }
 
-  async function handleDomainChange(e: React.FormEvent) {
-    e.preventDefault();
-    setDomainError("");
-    setDomainSuccess(false);
-    
-    if (!domain.trim()) { setDomainError("Domain is required"); return; }
-    
-    setSavingDomain(true);
-    try {
-      const res = await fetch("/api/settings/domain", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ domain: domain.trim() }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        setDomainError(data.error ?? "Failed to update domain");
-      } else {
-        setDomainSuccess(true);
-      }
-    } finally {
-      setSavingDomain(false);
-    }
-  }
 
   const inputStyle = {
     background: "#0d0d0f",
@@ -177,59 +148,6 @@ export default function SettingsPage() {
         </div>
       </section>
 
-      {/* Domain Configuration */}
-      <section className="rounded-xl overflow-hidden" style={{ border: "1px solid #1c1c20" }}>
-        <div className="flex items-center gap-2.5 px-5 py-4" style={{ background: "#111114", borderBottom: "1px solid #1c1c20" }}>
-          <Globe className="h-4 w-4" style={{ color: "#3ecf8e" }} />
-          <div>
-            <p className="text-sm font-medium text-white">Domain Configuration</p>
-            <p className="text-xs" style={{ color: "#6b6b70" }}>Set your app's public domain for production</p>
-          </div>
-        </div>
-        <div className="p-5" style={{ background: "#0d0d0f" }}>
-          <form onSubmit={handleDomainChange} className="space-y-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-medium" style={{ color: "#6b6b70" }}>Public domain</label>
-              <input
-                type="text"
-                placeholder="example.com"
-                value={domain}
-                onChange={(e) => setDomain(e.target.value)}
-                required
-                style={inputStyle}
-                onFocus={(e) => (e.currentTarget.style.borderColor = "#3ecf8e")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "#222226")}
-              />
-              <p className="text-xs" style={{ color: "#6b6b70" }}>
-                Used for authentication redirects and API calls. Example: <code style={{ color: "#a0a0a6" }}>example.com</code> or <code style={{ color: "#a0a0a6" }}>app.example.com</code>
-              </p>
-            </div>
-
-            {domainError && (
-              <div className="flex items-center gap-2 text-xs" style={{ color: "#f87171" }}>
-                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
-                {domainError}
-              </div>
-            )}
-            {domainSuccess && (
-              <div className="flex items-center gap-2 text-xs" style={{ color: "#10b981" }}>
-                <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
-                Domain updated successfully
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={savingDomain}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              style={{ background: "rgba(62,207,142,0.1)", border: "1px solid rgba(62,207,142,0.2)", color: "#3ecf8e" }}
-            >
-              {savingDomain && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
-              Save domain
-            </button>
-          </form>
-        </div>
-      </section>
 
       {/* Server Info */}
       <section className="rounded-xl overflow-hidden" style={{ border: "1px solid #1c1c20" }}>
