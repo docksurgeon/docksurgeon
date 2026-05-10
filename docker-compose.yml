@@ -1,26 +1,35 @@
 services:
   docksurgeon:
-    image: ghcr.io/docksurgeon/docksurgeon:latest
+    image: ghcr.io/docksurgeon/docksurgeon:main
     container_name: docksurgeon
     restart: unless-stopped
-    ports:
-      - "${DS_PORT:-4242}:3000"
+    # We remove the public port mapping because Caddy handles it
+    expose:
+      - "3000"
     pid: host
     privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      # ⚠️  IMPORTANT: Data volume for database persistence
-      # Contains: admin password, settings, audit logs
-      # DO NOT DELETE: docker volume rm docksurgeon-data
-      # This volume persists across updates automatically
       - docksurgeon-data:/app/data
     environment:
-      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:4242}
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost}
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:?NEXTAUTH_SECRET is required}
       - NODE_ENV=production
 
+  # SaaS Proxy: Automatically manages SSL and Domains from DockSurgeon Settings
+  proxy:
+    image: caddy:latest
+    container_name: docksurgeon-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # Caddy reads the config file that DockSurgeon writes to the shared volume
+      - docksurgeon-data:/app/data
+      - docksurgeon-data:/data
+      - docksurgeon-data:/config
+    command: caddy reverse-proxy --from ${NEXTAUTH_URL:-localhost} --to docksurgeon:3000
+
 volumes:
-  # ⚠️  CRITICAL: Contains database with passwords and settings
-  # Automatically persists across container restarts and updates
-  # Backup: docker cp docksurgeon:/app/data/surgeon.db ./backup.db
   docksurgeon-data:
