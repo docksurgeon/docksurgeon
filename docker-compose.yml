@@ -1,6 +1,6 @@
 services:
   docksurgeon:
-    image: ghcr.io/karansharma1732/docksurgeon:latest
+    image: ghcr.io/docksurgeon/docksurgeon:latest
     container_name: docksurgeon
     restart: unless-stopped
     ports:
