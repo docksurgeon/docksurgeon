@@ -50,13 +50,19 @@ fi
 
 # Determine links for the user
 IP_ADDR=$(hostname -i | awk '{print $1}')
-# Try multiple ways to get the public IP
-PUBLIC_IP=$(curl -s --connect-timeout 2 https://checkip.amazonaws.com || curl -s --connect-timeout 2 ifconfig.me || echo "your-server-ip")
+
+# Ultra-robust Public IP Detection
+log "Detecting external IP..."
+PUBLIC_IP=$(curl -s --connect-timeout 2 https://checkip.amazonaws.com || \
+            curl -s --connect-timeout 2 http://whatismyip.akamai.com/ || \
+            curl -s --connect-timeout 2 https://api.ipify.org || \
+            curl -s --connect-timeout 2 ifconfig.me || \
+            echo "your-server-ip")
 
 log "Configuration complete:"
-log "  - Access via IP:  http://$PUBLIC_IP:$ACTUAL_PORT"
-log "  - Access via Lan: http://$IP_ADDR:$ACTUAL_PORT"
-log "  - Access via Domain: ${NEXTAUTH_URL_PROVIDED:-Not set yet (Use Settings UI)}"
+log "  - External Access: http://$PUBLIC_IP:$ACTUAL_PORT"
+log "  - Internal Access: http://$IP_ADDR:$ACTUAL_PORT"
+log "  - Domain:          ${NEXTAUTH_URL_PROVIDED:-Not set (Use Settings UI)}"
 echo ""
 
 # ANSI Colors
