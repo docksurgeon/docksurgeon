@@ -72,7 +72,19 @@ EOF
 
 echo ""
 echo "🚀 DockSurgeon is running successfully!"
-echo "📡 Port: $ACTUAL_PORT"
+
+# Smartly determine which port to display based on if they used a domain or custom IP
+if [ -n "$NEXTAUTH_URL_PROVIDED" ]; then
+  DISPLAY_PORT=$(echo "$NEXTAUTH_URL_PROVIDED" | grep -o ':[0-9]*$' | tr -d ':' || true)
+  if [ -z "$DISPLAY_PORT" ]; then
+    echo "📡 Port: 80/443 (Standard Web Ports)"
+  else
+    echo "📡 Port: $DISPLAY_PORT"
+  fi
+else
+  echo "📡 Port: $ACTUAL_PORT"
+fi
+
 echo "🌐 Access your dashboard at: ${NEXTAUTH_URL:-http://localhost:$ACTUAL_PORT}"
 echo "==============================================================="
 echo ""
