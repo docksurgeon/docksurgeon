@@ -1,32 +1,51 @@
+<div align="center">
+
 # 🔪 DockSurgeon
 
-**Visual Docker storage analysis and cleanup** — see exactly what's eating your disk and reclaim it with one click.
+**Perform surgery on your bloated Docker storage. Reclaim your disk space with precision.**
 
-![DockSurgeon Logo](/public/logo/logo-with-name.png)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docker Image](https://img.shields.io/badge/Docker-ghcr.io-blue?logo=docker)](https://github.com/docksurgeon/docksurgeon/pkgs/container/docksurgeon)
+
+<img src="public/logo/logo-with-name.png" width="450" alt="DockSurgeon Logo" />
+
+</div>
 
 ---
 
-## 🚀 Quick Start
+### 📋 The Scenario
+Your server is running out of disk space. You know Docker is the culprit, but finding exactly which **dangling image**, **unused volume**, or **abandoned container** is eating those 20GBs is a headache. 
 
-> **Requirement:** Docker with the Compose V2 plugin (`docker compose`, not `docker-compose`).  
-> Install: https://docs.docker.com/compose/install/
+**DockSurgeon** gives you the "surgeon's view" — a beautiful, visual dashboard to analyze your storage and perform precise cleanup operations without touching the command line.
 
-### Option 1 — Docker Compose (recommended)
+---
+
+### ✨ Features
+- 📊 **Visual Storage Breakdown**: See exactly how much space Images, Containers, and Volumes are taking.
+- 🧹 **One-Click Cleanup**: Safely purge dangling assets that are wasting space.
+- 🔍 **Deep Inspection**: View detailed metadata and logs for every Docker object.
+- 🛡️ **Secure by Design**: Self-hosted, private, and requires zero external cloud dependencies.
+- 🚀 **Smart Port Detection**: Automatically finds available ports to avoid conflicts during setup.
+
+---
+
+### 🚀 Quick Start (Production)
+
+#### 🛠️ Option 1: Docker Compose (Recommended)
+This is the easiest way to keep your server clean and organized.
 
 ```bash
 # 1. Download the compose file
-curl -fsSL https://raw.githubusercontent.com/<org>/docksurgeon/main/docker-compose.yml -o docker-compose.yml
+curl -fsSL https://raw.githubusercontent.com/docksurgeon/docksurgeon/main/docker-compose.yml -o docker-compose.yml
 
-# 2. Generate a secret and start
+# 2. Start the surgery
 export NEXTAUTH_SECRET=$(openssl rand -base64 48)
 docker compose up -d
-
-# Access at http://<your-server-ip>:4242
 ```
+🌐 Access at `http://your-server-ip:4242`
 
-> Only the `docker-compose.yml` is needed — Docker pulls the image from GHCR automatically.
-
-### Option 2 — Docker run (no compose file)
+#### 🐳 Option 2: One-Line Docker Run
+If you just want to run it once without a file:
 
 ```bash
 docker run -d \
@@ -37,90 +56,45 @@ docker run -d \
   -p 4242:3000 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v docksurgeon-data:/app/data \
-  -e NEXTAUTH_SECRET="$(openssl rand -base64 48)" \
-  -e NEXTAUTH_URL="http://$(hostname -I | awk '{print $1}'):4242" \
+  -e NEXTAUTH_URL="http://$(curl -s ifconfig.me):4242" \
+  -e NEXTAUTH_SECRET="$(openssl rand -base64 32)" \
   -e NODE_ENV=production \
-  ghcr.io/<org>/docksurgeon:latest
-
-# Access at http://<your-server-ip>:4242
+  ghcr.io/docksurgeon/docksurgeon:main
 ```
 
 ---
 
-## ⚙️ Configuration
-
-| Variable | Default | Description |
-|---|---|---|
-| `NEXTAUTH_SECRET` | **required** | Random secret for session signing |
-| `NEXTAUTH_URL` | `http://localhost:4242` | Public URL of the app |
-| `DS_PORT` | `4242` | Host port to bind |
-| `DS_DATA_DIR` | `/app/data` | Database directory inside container |
-
-### Custom port
+### 🔄 Staying Up to Date
+Updating is simple. If you used the `docker run` method, we recommend creating an `update.sh` script:
 
 ```bash
-export DS_PORT=5000
-export NEXTAUTH_URL="http://localhost:5000"
-docker compose up -d
+# Pull the latest image and restart
+docker pull ghcr.io/docksurgeon/docksurgeon:main
+docker rm -f docksurgeon
+# (Run your docker run command again)
 ```
 
 ---
 
-## 🔄 Updating
+### 🏗️ Development
+Want to contribute? Setting up a local environment is easy:
 
 ```bash
-docker compose pull
-docker compose up -d
-```
-
-Data persists automatically in the `docksurgeon-data` Docker volume.
-
----
-
-## 💾 Backup & Restore
-
-```bash
-# Backup database
-docker cp docksurgeon:/app/data/surgeon.db ./surgeon-backup-$(date +%Y%m%d).db
-
-# Restore
-docker stop docksurgeon
-docker cp ./surgeon-backup-YYYYMMDD.db docksurgeon:/app/data/surgeon.db
-docker start docksurgeon
-```
-
----
-
-## 🏗️ Local Development
-
-```bash
+git clone https://github.com/docksurgeon/docksurgeon.git
+cd docksurgeon
 npm install
 npm run dev
-# Open http://localhost:3000
 ```
 
 ---
 
-## 🐳 Docker Build
-
-```bash
-docker build -t docksurgeon .
-```
-
-The build is fully automated via GitHub Actions — every push to `main` publishes `latest` to GHCR.
+### 🔐 Security & Privacy
+- 🔌 **Local Socket**: DockSurgeon communicates directly with `/var/run/docker.sock`.
+- 🛂 **Authentication**: Built-in login protection ensures only you can perform surgery.
+- 🕵️ **Audit Logs**: Every action is logged for your review.
 
 ---
 
-## 🔐 Security
-
-DockSurgeon requires privileged access and the Docker socket (equivalent to root on the host).
-
-- Keep the port firewalled — do **not** expose port 4242 directly to the internet
-- Use Caddy or nginx with SSL for external access
-- All destructive actions are recorded in the built-in audit log
-
----
-
-## 📄 License
-
-MIT
+<div align="center">
+Built with ❤️ for the Docker Community.
+</div>
