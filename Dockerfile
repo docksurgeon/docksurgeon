@@ -27,8 +27,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Install Caddy for professional SaaS SSL management
-RUN apk add --no-cache procps shadow util-linux caddy
+# Install Caddy and curl for professional SaaS SSL management
+RUN apk add --no-cache procps shadow util-linux caddy curl
 
 # Create nodejs group + nextjs user
 RUN addgroup -g 1001 -S nodejs && \
