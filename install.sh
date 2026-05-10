@@ -22,27 +22,32 @@ echo "   --------------------------------------------------------------"
 echo ""
 
 # 1. Detect environment
-echo -e "🔍 ${BOLD}Detecting Environment...${NC}"
+echo -e "🔍 ${BOLD}System Check${NC}"
 PUBLIC_IP=$(curl -s --connect-timeout 2 https://checkip.amazonaws.com || curl -s --connect-timeout 2 ifconfig.me || echo "unknown")
-echo -e "   📡 Public IP: ${GREEN}$PUBLIC_IP${NC}"
+echo -e "   📡 Detected IP: ${GREEN}$PUBLIC_IP${NC}"
 
-# 2. Check for port 80/443
 if lsof -i:80 > /dev/null 2>&1; then
-    echo -e "   ⚠️  Port 80 is occupied (Running in Standalone Port 4242 mode)"
+    echo -e "   ⚠️  Port 80 busy: DockSurgeon will run on ${BOLD}Port 4242${NC} only."
 else
-    echo -e "   ✅ Port 80 is free"
+    echo -e "   ✅ Port 80 free: Available for future routing."
 fi
 
-# 3. Generate Secret
+# 2. Generate Security Assets
+echo -e "\n🛡️  ${BOLD}Generating Security Assets${NC}"
 NEXTAUTH_SECRET=$(openssl rand -base64 32)
+echo -e "   ✅ Cryptographic secret generated"
 
-# 4. Clean up old instances
-echo -e "\n🧹 ${BOLD}Cleaning up old instances...${NC}"
+# 3. Clean up
+echo -e "\n🧹 ${BOLD}Preparing Environment${NC}"
 docker rm -f docksurgeon >/dev/null 2>&1 || true
-echo -e "   ✅ Cleaned"
+echo -e "   ✅ Old containers cleared"
 
-# 5. Launch MVP Strategy (IP Only)
-echo -e "\n🚀 ${BOLD}Starting DockSurgeon...${NC}"
+# 4. Launch
+echo -e "\n🚀 ${BOLD}Deploying DockSurgeon MVP${NC}"
+echo -e "   📦 Mounting: Docker Socket (/var/run/docker.sock)"
+echo -e "   💾 Mounting: Persistent Data (docksurgeon-data)"
+echo -e "   🔌 Binding:  Port 4242\n"
+
 docker run -d \
   --name docksurgeon \
   --restart unless-stopped \
@@ -56,8 +61,15 @@ docker run -d \
   -e NODE_ENV=production \
   ghcr.io/docksurgeon/docksurgeon:main >/dev/null
 
-echo -e "\n${GREEN}${BOLD}   [✓] INSTALLATION COMPLETE!${NC}"
-echo "   --------------------------------------------------------------"
-echo -e "   🌐 Access your dashboard at: ${BLUE}${BOLD}http://$PUBLIC_IP:4242${NC}"
-echo -e "   --------------------------------------------------------------\n"
+echo -e "   ✅ Container deployed successfully!"
+
+echo -e "\n${GREEN}${BOLD}==============================================================${NC}"
+echo -e "${GREEN}${BOLD}   🎉 INSTALLATION COMPLETE!${NC}"
+echo -e "${GREEN}${BOLD}==============================================================${NC}"
+echo -e "\n   ${BOLD}Next Steps:${NC}"
+echo -e "   1. Open your browser to: ${BLUE}${BOLD}http://$PUBLIC_IP:4242${NC}"
+echo -e "   2. Log in and start managing your containers."
+echo -e "   3. ${BOLD}Security Note:${NC} Keep port 4242 firewalled if exposing to the public internet."
+echo -e "\n   To view live server logs, run: ${CYAN}docker logs -f docksurgeon${NC}"
+echo -e "==============================================================\n"
 
