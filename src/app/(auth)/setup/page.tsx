@@ -142,19 +142,19 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
+import Image from "next/image";
+
 function BrandHeader() {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "32px" }}>
-      <div style={{ height: "28px", width: "28px", borderRadius: "6px", background: "rgba(62,207,142,0.1)", border: "1px solid rgba(62,207,142,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <svg width="14" height="14" viewBox="0 0 28 28" fill="none">
-          <rect x="3" y="6" width="22" height="16" rx="3" fill="#0a2a1a" stroke="#1a6040" strokeWidth="1" />
-          <rect x="12.5" y="10" width="3" height="8" rx="1" fill={GREEN} />
-          <rect x="10" y="12.5" width="8" height="3" rx="1" fill={GREEN} />
-          <circle cx="23" cy="7" r="2.5" fill={GREEN} />
-          <circle cx="23" cy="7" r="1.2" fill="#0a0a0a" />
-        </svg>
-      </div>
-      <span style={{ fontSize: "15px", fontWeight: 600, color: "#ffffff", letterSpacing: "-0.01em" }}>DockSurgeon</span>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "32px" }}>
+      <Image
+        src="/logo/logo-with-name.png"
+        alt="DockSurgeon"
+        width={160}
+        height={40}
+        style={{ objectFit: "contain", width: "auto" }}
+        priority
+      />
     </div>
   );
 }
