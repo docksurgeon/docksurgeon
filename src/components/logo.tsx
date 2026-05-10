@@ -5,10 +5,11 @@ export function Logo({ size = 32 }: { size?: number }) {
     <Image
       src="/logo/logo-with-name.png"
       alt="DockSurgeon"
-      width={size * 4} // Adjusting width automatically based on height to maintain aspect ratio for text
+      width={size * 4}
       height={size}
       style={{ objectFit: "contain", width: "auto" }}
       priority
+      unoptimized
     />
   );
 }

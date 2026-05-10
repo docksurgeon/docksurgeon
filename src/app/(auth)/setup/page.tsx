@@ -183,6 +183,7 @@ function BrandHeader() {
         height={40}
         style={{ objectFit: "contain", width: "auto" }}
         priority
+        unoptimized
       />
     </div>
   );
