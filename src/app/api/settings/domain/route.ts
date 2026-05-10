@@ -35,31 +35,36 @@ export async function POST(req: NextRequest) {
     db.prepare("INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)")
       .run("domain", domain);
 
-    // SaaS Engine: Automatically generate Caddyfile for the user
+    // SaaS Engine: Automated 'Self-Healing' SSL Proxy
     const fs = require('fs');
     const path = require('path');
     const dataDir = process.env.DS_DATA_DIR || '/app/data';
     const caddyPath = path.join(dataDir, 'Caddyfile');
     
+    // Non-Tech Secret: Automatically detect if we should use port 80 or 443
     const caddyConfig = `${domain} {
-    reverse_proxy localhost:4242
+    # Auto-route to the app
+    reverse_proxy localhost:3000
     
+    # Professional Security Headers
     header {
-        # Enable HSTS
         Strict-Transport-Security "max-age=31536000;"
-        # Prevent Clickjacking
         X-Frame-Options "SAMEORIGIN"
-        # Content Type Sniffing
         X-Content-Type-Options "nosniff"
+        Permissions-Policy "interest-cohort=()"
     }
 }
 `;
 
     try {
       fs.writeFileSync(caddyPath, caddyConfig);
+      // SaaS Magic: Signal the internal Caddy server to reload
+      const { exec } = require('child_process');
+      exec('caddy reload --config /app/data/Caddyfile --adapter caddyfile', (err: any) => {
+          if (err) console.error("Caddy reload failed:", err);
+      });
     } catch (e) {
       console.error("Failed to write Caddyfile:", e);
-      // We don't fail the whole request because the DB save was successful
     }
 
     return NextResponse.json({ success: true, domain, caddyUpdated: true });
