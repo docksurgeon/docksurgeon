@@ -26,7 +26,7 @@ export function Sidebar() {
   return (
     <aside className="flex h-full w-52 shrink-0 flex-col" style={{ background: "#0a0a0c", borderRight: "1px solid #1c1c20" }}>
       {/* Logo */}
-      <div className="h-14 flex items-center px-4" style={{ borderBottom: "1px solid #1c1c20" }}>
+      <div className="py-5 px-4 flex flex-col justify-center" style={{ borderBottom: "1px solid #1c1c20" }}>
         <LogoMark />
       </div>
 
