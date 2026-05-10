@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # DockSurgeon - Smart Port Finder
 # Finds available port if default is in use
 # Used as entrypoint for Docker container
