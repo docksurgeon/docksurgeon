@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { 
-  RocketIcon, 
-  ShieldCheckIcon, 
-  GlobeAltIcon, 
-  CheckCircleIcon,
-  ExclamationTriangleIcon,
-  ArrowRightIcon
-} from "@heroicons/react/24/outline";
+  Rocket, 
+  ShieldCheck, 
+  Globe, 
+  CheckCircle,
+  AlertTriangle,
+  ArrowRight
+} from "lucide-react";
 
 export default function SetupWizard() {
   const [step, setStep] = useState(1);
@@ -33,7 +33,7 @@ export default function SetupWizard() {
           {step === 1 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="h-16 w-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6">
-                <RocketIcon className="h-8 w-8 text-blue-500" />
+                <Rocket className="h-8 w-8 text-blue-500" />
               </div>
               <h1 className="text-3xl font-bold tracking-tight">Welcome to DockSurgeon</h1>
               <p className="text-gray-400 text-lg">
@@ -43,7 +43,7 @@ export default function SetupWizard() {
                 onClick={handleNext}
                 className="w-full bg-white text-black font-semibold py-4 rounded-xl hover:bg-gray-200 transition flex items-center justify-center gap-2"
               >
-                Start Onboarding <ArrowRightIcon className="h-5 w-5" />
+                Start Onboarding <ArrowRight className="h-5 w-5" />
               </button>
             </div>
           )}
@@ -51,7 +51,7 @@ export default function SetupWizard() {
           {step === 2 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
               <div className="h-16 w-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6">
-                <GlobeAltIcon className="h-8 w-8 text-purple-500" />
+                <Globe className="h-8 w-8 text-purple-500" />
               </div>
               <h1 className="text-3xl font-bold tracking-tight">Connect Your Domain</h1>
               <p className="text-gray-400">
@@ -68,7 +68,7 @@ export default function SetupWizard() {
                 />
                 
                 <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl flex gap-3">
-                  <ExclamationTriangleIcon className="h-5 w-5 text-yellow-500 shrink-0" />
+                  <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0" />
                   <p className="text-sm text-yellow-500/90">
                     Make sure to point your DNS A Record to your server IP before continuing.
                   </p>
@@ -95,7 +95,7 @@ export default function SetupWizard() {
           {step === 3 && (
             <div className="space-y-6 text-center animate-in fade-in zoom-in-95 duration-500">
               <div className="h-24 w-24 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircleIcon className="h-12 w-12 text-green-500" />
+                <CheckCircle className="h-12 w-12 text-green-500" />
               </div>
               <h1 className="text-3xl font-bold tracking-tight">You're Ready!</h1>
               <p className="text-gray-400">
@@ -106,7 +106,7 @@ export default function SetupWizard() {
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm text-gray-400">Public URL</span>
                   <span className="text-green-500 text-sm font-medium flex items-center gap-1">
-                    <ShieldCheckIcon className="h-4 w-4" /> Secure
+                    <ShieldCheck className="h-4 w-4" /> Secure
                   </span>
                 </div>
                 <div className="text-xl font-mono text-blue-400">https://{domain || 'your-domain.com'}</div>
