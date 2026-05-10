@@ -59,9 +59,23 @@ fi
 log "Configuration complete:"
 log "  - Port: $ACTUAL_PORT"
 log "  - NEXTAUTH_URL: ${NEXTAUTH_URL:-not set}"
-log ""
-log "Starting Next.js application..."
-log "================================"
+echo ""
+
+cat << "EOF"
+  ____             _    ____                                
+ |  _ \  ___   ___| | _/ ___| _   _ _ __ __ _  ___  ___  _ __ 
+ | | | |/ _ \ / __| |/ \___ \| | | | '__/ _` |/ _ \/ _ \| '_ \
+ | |_| | (_) | (__|   < ___) | |_| | | | (_| |  __/ (_) | | | |
+ |____/ \___/ \___|_|\_\____/ \__,_|_|  \__, |\___|\___/|_| |_|
+                                        |___/                   
+EOF
+
+echo ""
+echo "🚀 DockSurgeon is running successfully!"
+echo "📡 Port: $ACTUAL_PORT"
+echo "🌐 Access your dashboard at: ${NEXTAUTH_URL:-http://localhost:$ACTUAL_PORT}"
+echo "==============================================================="
+echo ""
 
 # Start the Next.js app
 exec "$@"
