@@ -50,12 +50,13 @@ fi
 
 # Determine links for the user
 IP_ADDR=$(hostname -i | awk '{print $1}')
-PUBLIC_IP=$(curl -s --connect-timeout 2 ifconfig.me || echo "your-server-ip")
+# Try multiple ways to get the public IP
+PUBLIC_IP=$(curl -s --connect-timeout 2 https://checkip.amazonaws.com || curl -s --connect-timeout 2 ifconfig.me || echo "your-server-ip")
 
 log "Configuration complete:"
-log "  - Internal: http://$IP_ADDR:$ACTUAL_PORT"
-log "  - Public:   http://$PUBLIC_IP:$ACTUAL_PORT"
-log "  - Domain:   ${NEXTAUTH_URL_PROVIDED:-Not configured (Standard SaaS Mode)}"
+log "  - Access via IP:  http://$PUBLIC_IP:$ACTUAL_PORT"
+log "  - Access via Lan: http://$IP_ADDR:$ACTUAL_PORT"
+log "  - Access via Domain: ${NEXTAUTH_URL_PROVIDED:-Not set yet (Use Settings UI)}"
 echo ""
 
 # ANSI Colors
