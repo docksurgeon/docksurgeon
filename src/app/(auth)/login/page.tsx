@@ -137,19 +137,15 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-import Image from "next/image";
+
 
 function BrandHeader() {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "32px" }}>
-      <Image
+      <img
         src="/logo/logo-with-name.png"
         alt="DockSurgeon"
-        width={160}
-        height={40}
-        style={{ objectFit: "contain", width: "auto" }}
-        priority
-        unoptimized
+        style={{ height: "36px", width: "auto", objectFit: "contain" }}
       />
     </div>
   );
