@@ -50,7 +50,7 @@ When pulling a fresh Docker image from GHCR, the email password stored in the da
 
 **Update process (data automatically preserved):**
 ```bash
-docker pull ghcr.io/yourusername/docksurgeon:latest
+docker pull ghcr.io/docksurgeon/docksurgeon:latest
 docker compose up -d
 ```
 
@@ -88,14 +88,14 @@ docker compose up -d  # Update
 GitHub Container Registry (GHCR) did not automatically build and push new images when code was pushed to the repository.
 
 **Solution Implemented:**
-- Added GitHub Actions workflow: `.github/workflows/build-push-ghcr.yml`
-  - Triggers on `push` to `master` and on published `release`
-  - Builds the Docker image from `./docksurgeon` using `docker/build-push-action@v4`
+- Added GitHub Actions workflow: `.github/workflows/publish.yml`
+  - Triggers on `push` to `main` and on tags
+  - Builds the Docker image from root using `docker/build-push-action@v5`
   - Logs in to GHCR using `secrets.GITHUB_TOKEN`
-  - Tags image with commit SHA and `latest` and pushes to `ghcr.io/${{ github.repository_owner }}/docksurgeon`
+  - Tags image with commit SHA and `latest` and pushes to `ghcr.io/${{ github.repository }}`
 
 **Files Added:**
-- `.github/workflows/build-push-ghcr.yml` — CI workflow to build & push image
+- `.github/workflows/publish.yml` — CI workflow to build & push image
 
 **Notes / Next Steps:**
 - The workflow uses `GITHUB_TOKEN` (no extra secrets required). If you prefer a deploy key or PAT scoped to `packages:write`, replace `GITHUB_TOKEN` with that secret.

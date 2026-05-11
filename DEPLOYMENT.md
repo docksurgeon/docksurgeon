@@ -167,7 +167,7 @@ volumes:
 
 ```bash
 # Pull latest image
-docker pull ghcr.io/yourusername/docksurgeon:latest
+docker pull ghcr.io/docksurgeon/docksurgeon:latest
 
 # Update containers (data automatically persists)
 docker compose up -d

@@ -1,6 +1,6 @@
 services:
   docksurgeon:
-    image: ghcr.io/docksurgeon/docksurgeon:main
+    image: ghcr.io/docksurgeon/docksurgeon:latest
     container_name: docksurgeon
     restart: unless-stopped
     # We remove the public port mapping because Caddy handles it

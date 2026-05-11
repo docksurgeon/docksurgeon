@@ -25,7 +25,7 @@ For routine updates (e.g., 1.0.0 → 1.0.1), data automatically persists:
 
 ```bash
 # Step 1: Pull latest image
-docker pull ghcr.io/yourusername/docksurgeon:latest
+docker pull ghcr.io/docksurgeon/docksurgeon:latest
 
 # Step 2: Update running containers
 docker compose up -d
@@ -49,7 +49,7 @@ For major updates (e.g., 1.0 → 2.0), backup first:
 ./backup.sh
 
 # Step 2: Pull latest image
-docker pull ghcr.io/yourusername/docksurgeon:latest
+docker pull ghcr.io/docksurgeon/docksurgeon:latest
 
 # Step 3: Update and restart
 docker compose up -d

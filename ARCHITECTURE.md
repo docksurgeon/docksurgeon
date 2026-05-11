@@ -31,7 +31,7 @@ GitHub Actions
 Build Docker image
      │
      ▼
-Push to GHCR (ghcr.io/org/docksurgeon:latest)
+Push to GHCR (ghcr.io/docksurgeon/docksurgeon:latest)
      │
      ▼
 install.sh pulls image + runs container
@@ -53,7 +53,7 @@ docker run -d \
   -p 4242:3000 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v docksurgeon-data:/app/data \
-  ghcr.io/org/docksurgeon:latest
+  ghcr.io/docksurgeon/docksurgeon:latest
 ```
 
 Two mounts:
