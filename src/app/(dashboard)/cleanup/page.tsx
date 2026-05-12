@@ -84,15 +84,26 @@ export default function CleanupPage() {
   async function handleExecute() {
     if (!activeType || !preview) return;
     setExecuting(true);
+    setResult(null);
     try {
-      await fetch("/api/cleanup/execute", {
+      const res = await fetch("/api/cleanup/execute", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ type: activeType }),
       });
-      setResult({ freed: preview.totalBytes, done: true });
+      
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Cleanup failed");
+      }
+      
+      const data = await res.json();
+      setResult({ freed: data.totalFreed ?? preview.totalBytes, done: true });
       setPreview(null);
       setActiveType(null);
+    } catch (err) {
+      console.error(err);
+      alert(err instanceof Error ? err.message : "Cleanup failed");
     } finally {
       setExecuting(false);
     }

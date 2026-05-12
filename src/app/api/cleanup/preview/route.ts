@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
         id: v.Name,
         name: v.Name,
         type: "volume",
-        bytes: 0,
+        bytes: (v as any).UsageData?.Size ?? 0,
         riskLevel: "verify",
         warning: "Volume data will be permanently deleted",
       });

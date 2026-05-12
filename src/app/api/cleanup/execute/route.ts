@@ -26,15 +26,34 @@ export async function POST(req: NextRequest) {
     }
 
     if (type === "volumes" || type === "all") {
-      const pruned = await docker.pruneVolumes();
-      const freed = pruned.SpaceReclaimed ?? 0;
-      db.prepare("INSERT INTO audit_log (action, bytes_freed, success) VALUES (?, ?, 1)").run("prune_volumes", freed);
+      const [volumes, containers] = await Promise.all([
+        docker.listVolumes(),
+        docker.listContainers({ all: true }),
+      ]);
+      const usedVolumeNames = new Set(
+        containers.flatMap((c) => c.Mounts?.map((m) => m.Name ?? "") ?? [])
+      );
+      const unused = (volumes.Volumes ?? []).filter((v) => !usedVolumeNames.has(v.Name));
+      
+      let freed = 0;
+      for (const v of unused) {
+        try {
+          const vol = docker.getVolume(v.Name);
+          await vol.remove();
+          // Note: v.UsageData might be undefined if not returned by listVolumes
+          freed += (v as any).UsageData?.Size ?? 0;
+          db.prepare("INSERT INTO audit_log (action, target_id, target_name, success) VALUES (?, ?, ?, 1)")
+            .run("remove_volume", v.Name, v.Name);
+        } catch (err) {
+          console.error(`Failed to remove volume ${v.Name}:`, err);
+        }
+      }
       results.push({ action: "prune_volumes", success: true, freed });
     }
 
     if (type === "build-cache" || type === "all") {
       const pruned = await docker.pruneBuilder();
-      const freed = (pruned as { SpaceReclaimed?: number }).SpaceReclaimed ?? 0;
+      const freed = (pruned as any).SpaceReclaimed ?? 0;
       db.prepare("INSERT INTO audit_log (action, bytes_freed, success) VALUES (?, ?, 1)").run("prune_build_cache", freed);
       results.push({ action: "prune_build_cache", success: true, freed });
     }
