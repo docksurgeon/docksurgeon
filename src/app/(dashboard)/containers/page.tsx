@@ -19,7 +19,7 @@ interface Container {
 const stateStyle = (state: string): { color: string; bg: string; border: string } => {
   if (state === "running") return { color: "#10b981", bg: "rgba(16,185,129,0.1)", border: "rgba(16,185,129,0.2)" };
   if (state === "paused")  return { color: "#f59e0b", bg: "rgba(245,158,11,0.1)", border: "rgba(245,158,11,0.2)" };
-  return { color: "#6b6b70", bg: "#1a1a1e", border: "#222226" };
+  return { color: "#a1a1aa", bg: "#1a1a1e", border: "#222226" };
 };
 
 export default function ContainersPage() {
@@ -66,7 +66,7 @@ export default function ContainersPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-white tracking-tight">Containers</h1>
-          <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>
+          <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>
             {loading ? "Loading..." : `${containers.length} total · ${running} running`}
           </p>
         </div>
@@ -74,7 +74,7 @@ export default function ContainersPage() {
           onClick={load}
           disabled={loading}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors"
-          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
           Refresh
@@ -93,11 +93,11 @@ export default function ContainersPage() {
         <table className="w-full text-sm">
           <thead>
             <tr style={{ background: "#111114", borderBottom: "1px solid #1c1c20" }}>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Name</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Image</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>State</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Size</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Created</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Name</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Image</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>State</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Size</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Created</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -114,7 +114,7 @@ export default function ContainersPage() {
               ))
             ) : containers.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-sm" style={{ color: "#6b6b70" }}>
+                <td colSpan={6} className="px-4 py-10 text-center text-sm" style={{ color: "#a1a1aa" }}>
                   No containers found
                 </td>
               </tr>
@@ -130,7 +130,7 @@ export default function ContainersPage() {
                     className="transition-colors"
                   >
                     <td className="px-4 py-3 text-sm font-medium" style={{ color: "#f0f0f3" }}>{c.name}</td>
-                    <td className="px-4 py-3 font-mono text-xs max-w-[180px]" style={{ color: "#6b6b70" }}>
+                    <td className="px-4 py-3 font-mono text-xs max-w-[180px]" style={{ color: "#a1a1aa" }}>
                       <span className="truncate block">{c.image}</span>
                     </td>
                     <td className="px-4 py-3">
@@ -141,10 +141,10 @@ export default function ContainersPage() {
                         {c.state}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "#a0a0a6" }}>
+                    <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "#d4d4d8" }}>
                       {c.sizeRootFs > 0 ? formatBytes(c.sizeRootFs) : "—"}
                     </td>
-                    <td className="px-4 py-3 text-xs" style={{ color: "#6b6b70" }}>
+                    <td className="px-4 py-3 text-xs" style={{ color: "#a1a1aa" }}>
                       {new Date(c.created * 1000).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-3">
@@ -153,9 +153,9 @@ export default function ContainersPage() {
                           title="View logs"
                           onClick={() => router.push(`/logs?container=${c.id}`)}
                           className="h-7 w-7 rounded-lg flex items-center justify-center transition-colors"
-                          style={{ color: "#6b6b70" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = "#a0a0a6")}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = "#6b6b70")}
+                          style={{ color: "#a1a1aa" }}
+                          onMouseEnter={(e) => (e.currentTarget.style.color = "#d4d4d8")}
+                          onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
                         >
                           <ScrollText className="h-3.5 w-3.5" />
                         </button>
@@ -165,11 +165,11 @@ export default function ContainersPage() {
                           onClick={() => setConfirm(c)}
                           className="h-7 w-7 rounded-lg flex items-center justify-center transition-colors"
                           style={{
-                            color: c.state === "running" ? "#3a3a40" : "#6b6b70",
+                            color: c.state === "running" ? "#71717a" : "#a1a1aa",
                             cursor: c.state === "running" ? "not-allowed" : "pointer",
                           }}
                           onMouseEnter={(e) => { if (c.state !== "running") e.currentTarget.style.color = "#f87171"; }}
-                          onMouseLeave={(e) => { if (c.state !== "running") e.currentTarget.style.color = "#6b6b70"; }}
+                          onMouseLeave={(e) => { if (c.state !== "running") e.currentTarget.style.color = "#a1a1aa"; }}
                         >
                           {deleting === c.id
                             ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -191,18 +191,18 @@ export default function ContainersPage() {
           <div className="w-full max-w-sm rounded-2xl p-6 space-y-4" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
             <div className="flex items-start justify-between">
               <h3 className="text-sm font-medium text-white">Remove container?</h3>
-              <button onClick={() => setConfirm(null)} style={{ color: "#6b6b70" }}>
+              <button onClick={() => setConfirm(null)} style={{ color: "#a1a1aa" }}>
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <p className="text-sm" style={{ color: "#6b6b70" }}>
-              Container <span style={{ color: "#a0a0a6" }}>{confirm.name}</span> will be permanently removed.
+            <p className="text-sm" style={{ color: "#a1a1aa" }}>
+              Container <span style={{ color: "#d4d4d8" }}>{confirm.name}</span> will be permanently removed.
             </p>
             <div className="flex gap-2 pt-1">
               <button
                 onClick={() => setConfirm(null)}
                 className="flex-1 py-2 rounded-lg text-sm"
-                style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+                style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
               >
                 Cancel
               </button>

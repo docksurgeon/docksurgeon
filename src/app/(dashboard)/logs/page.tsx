@@ -46,7 +46,7 @@ function LogsContent() {
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-white tracking-tight">Logs</h1>
-        <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>Real-time streaming container logs</p>
+        <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>Real-time streaming container logs</p>
       </div>
 
       <div className="flex gap-4 flex-1 min-h-0">
@@ -57,7 +57,7 @@ function LogsContent() {
               <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: "#111114", border: "1px solid #1c1c20" }} />
             ))
           ) : containers.length === 0 ? (
-            <p className="text-sm px-1" style={{ color: "#6b6b70" }}>No containers found</p>
+            <p className="text-sm px-1" style={{ color: "#a1a1aa" }}>No containers found</p>
           ) : (
             containers.map((c) => {
               const active = selected?.id === c.id;
@@ -74,11 +74,11 @@ function LogsContent() {
                   <div className="flex items-center gap-2 mb-1">
                     <span
                       className="h-1.5 w-1.5 rounded-full shrink-0"
-                      style={{ background: c.state === "running" ? "#10b981" : "#3a3a40" }}
+                      style={{ background: c.state === "running" ? "#10b981" : "#71717a" }}
                     />
-                    <span className="font-medium text-xs truncate" style={{ color: active ? "#6ee7b7" : "#a0a0a6" }}>{c.name}</span>
+                    <span className="font-medium text-xs truncate" style={{ color: active ? "#6ee7b7" : "#d4d4d8" }}>{c.name}</span>
                   </div>
-                  <p className="truncate text-[10px] pl-3.5" style={{ color: "#3a3a40" }}>{c.image}</p>
+                  <p className="truncate text-[10px] pl-3.5" style={{ color: "#71717a" }}>{c.image}</p>
                 </button>
               );
             })
@@ -93,20 +93,20 @@ function LogsContent() {
               <div className="flex items-center gap-2.5 shrink-0 px-4 py-2.5 rounded-xl" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
                 <span
                   className="h-2 w-2 rounded-full shrink-0"
-                  style={{ background: selected.state === "running" ? "#10b981" : "#3a3a40" }}
+                  style={{ background: selected.state === "running" ? "#10b981" : "#71717a" }}
                 />
                 <span className="text-sm font-medium" style={{ color: "#f0f0f3" }}>{selected.name}</span>
                 <span
                   className="text-[10px] px-2 py-0.5 rounded-full"
                   style={{
                     background: selected.state === "running" ? "rgba(16,185,129,0.1)" : "#1a1a1e",
-                    color: selected.state === "running" ? "#10b981" : "#6b6b70",
+                    color: selected.state === "running" ? "#10b981" : "#a1a1aa",
                     border: `1px solid ${selected.state === "running" ? "rgba(16,185,129,0.2)" : "#222226"}`,
                   }}
                 >
                   {selected.state}
                 </span>
-                <span className="text-xs truncate ml-1" style={{ color: "#3a3a40" }}>{selected.image}</span>
+                <span className="text-xs truncate ml-1" style={{ color: "#71717a" }}>{selected.image}</span>
               </div>
               <div className="flex-1 min-h-0">
                 <LogViewer containerId={selected.id} containerName={selected.name} />
@@ -114,7 +114,7 @@ function LogsContent() {
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center rounded-xl" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
-              <p className="text-sm" style={{ color: "#3a3a40" }}>Select a container to view logs</p>
+              <p className="text-sm" style={{ color: "#71717a" }}>Select a container to view logs</p>
             </div>
           )}
         </div>

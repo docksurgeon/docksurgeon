@@ -56,7 +56,7 @@ export default function VolumesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-white tracking-tight">Volumes</h1>
-          <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>
+          <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>
             {loading ? "Loading..." : `${volumes.length} total · ${unused} unused`}
           </p>
         </div>
@@ -64,7 +64,7 @@ export default function VolumesPage() {
           onClick={load}
           disabled={loading}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors"
-          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
           Refresh
@@ -90,11 +90,11 @@ export default function VolumesPage() {
         <table className="w-full text-sm">
           <thead>
             <tr style={{ background: "#111114", borderBottom: "1px solid #1c1c20" }}>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Name</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Driver</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Size</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Status</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Created</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Name</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Driver</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Size</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Status</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Created</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -111,7 +111,7 @@ export default function VolumesPage() {
               ))
             ) : volumes.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-sm" style={{ color: "#6b6b70" }}>
+                <td colSpan={6} className="px-4 py-10 text-center text-sm" style={{ color: "#a1a1aa" }}>
                   No volumes found
                 </td>
               </tr>
@@ -125,10 +125,10 @@ export default function VolumesPage() {
                   className="transition-colors"
                 >
                   <td className="px-4 py-3 font-mono text-xs max-w-[200px]">
-                    <span className="truncate block" style={{ color: "#a0a0a6" }}>{v.name}</span>
+                    <span className="truncate block" style={{ color: "#d4d4d8" }}>{v.name}</span>
                   </td>
-                  <td className="px-4 py-3 text-xs" style={{ color: "#6b6b70" }}>{v.driver}</td>
-                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "#a0a0a6" }}>
+                  <td className="px-4 py-3 text-xs" style={{ color: "#a1a1aa" }}>{v.driver}</td>
+                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "#d4d4d8" }}>
                     {v.size >= 0 ? formatBytes(v.size) : "—"}
                   </td>
                   <td className="px-4 py-3">
@@ -142,7 +142,7 @@ export default function VolumesPage() {
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-xs" style={{ color: "#6b6b70" }}>
+                  <td className="px-4 py-3 text-xs" style={{ color: "#a1a1aa" }}>
                     {v.created ? new Date(v.created).toLocaleDateString() : "—"}
                   </td>
                   <td className="px-4 py-3">
@@ -153,11 +153,11 @@ export default function VolumesPage() {
                         onClick={() => setConfirm(v)}
                         className="h-7 w-7 rounded-lg flex items-center justify-center"
                         style={{
-                          color: v.inUse ? "#3a3a40" : "#6b6b70",
+                          color: v.inUse ? "#71717a" : "#a1a1aa",
                           cursor: v.inUse ? "not-allowed" : "pointer",
                         }}
                         onMouseEnter={(e) => { if (!v.inUse) e.currentTarget.style.color = "#f87171"; }}
-                        onMouseLeave={(e) => { if (!v.inUse) e.currentTarget.style.color = "#6b6b70"; }}
+                        onMouseLeave={(e) => { if (!v.inUse) e.currentTarget.style.color = "#a1a1aa"; }}
                       >
                         {deleting === v.name
                           ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -181,18 +181,18 @@ export default function VolumesPage() {
                 <AlertTriangle className="h-4 w-4 shrink-0" style={{ color: "#f59e0b" }} />
                 <h3 className="text-sm font-medium text-white">Delete volume?</h3>
               </div>
-              <button onClick={() => setConfirm(null)} style={{ color: "#6b6b70" }}>
+              <button onClick={() => setConfirm(null)} style={{ color: "#a1a1aa" }}>
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <p className="text-sm" style={{ color: "#6b6b70" }}>
-              Volume <span className="font-mono" style={{ color: "#a0a0a6" }}>{confirm.name}</span> and all its data will be permanently deleted. This cannot be undone.
+            <p className="text-sm" style={{ color: "#a1a1aa" }}>
+              Volume <span className="font-mono" style={{ color: "#d4d4d8" }}>{confirm.name}</span> and all its data will be permanently deleted. This cannot be undone.
             </p>
             <div className="flex gap-2 pt-1">
               <button
                 onClick={() => setConfirm(null)}
                 className="flex-1 py-2 rounded-lg text-sm"
-                style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+                style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
               >
                 Cancel
               </button>

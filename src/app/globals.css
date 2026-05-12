@@ -9,13 +9,13 @@
   --color-card:            #111114;
   --color-card-foreground: #f0f0f3;
   --color-muted:           #1a1a1e;
-  --color-muted-foreground:#6b6b70;
+  --color-muted-foreground:#a1a1aa;
   --color-border:          #222226;
   --color-input:           #1a1a1e;
   --color-primary:         #6366f1;
   --color-primary-foreground: #ffffff;
   --color-secondary:       #1a1a1e;
-  --color-secondary-foreground: #a0a0a6;
+  --color-secondary-foreground: #e4e4e7;
   --color-accent:          #1e1e28;
   --color-accent-foreground: #a5b4fc;
   --color-destructive:     #ef4444;
@@ -36,6 +36,11 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+::placeholder {
+  color: #71717a !important;
+  opacity: 1;
 }
 
 /* Force all shadcn surfaces dark */

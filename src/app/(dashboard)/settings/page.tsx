@@ -70,7 +70,7 @@ export default function SettingsPage() {
     <div className="p-6 space-y-6 max-w-2xl">
       <div>
         <h1 className="text-xl font-semibold text-white tracking-tight">Settings</h1>
-        <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>Account and server configuration</p>
+        <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>Account and server configuration</p>
       </div>
 
       {/* Change Password */}
@@ -79,13 +79,13 @@ export default function SettingsPage() {
           <KeyRound className="h-4 w-4" style={{ color: "#3ecf8e" }} />
           <div>
             <p className="text-sm font-medium text-white">Change Password</p>
-            <p className="text-xs" style={{ color: "#6b6b70" }}>Update your admin password</p>
+            <p className="text-xs" style={{ color: "#a1a1aa" }}>Update your admin password</p>
           </div>
         </div>
         <div className="p-5" style={{ background: "#0d0d0f" }}>
           <form onSubmit={handlePasswordChange} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium" style={{ color: "#6b6b70" }}>Current password</label>
+              <label className="text-xs font-medium" style={{ color: "#a1a1aa" }}>Current password</label>
               <input
                 type="password"
                 value={current}
@@ -97,7 +97,7 @@ export default function SettingsPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-medium" style={{ color: "#6b6b70" }}>New password</label>
+              <label className="text-xs font-medium" style={{ color: "#a1a1aa" }}>New password</label>
               <input
                 type="password"
                 placeholder="Min. 8 characters"
@@ -110,7 +110,7 @@ export default function SettingsPage() {
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-xs font-medium" style={{ color: "#6b6b70" }}>Confirm new password</label>
+              <label className="text-xs font-medium" style={{ color: "#a1a1aa" }}>Confirm new password</label>
               <input
                 type="password"
                 value={confirm}
@@ -155,7 +155,7 @@ export default function SettingsPage() {
           <Server className="h-4 w-4" style={{ color: "#3ecf8e" }} />
           <div>
             <p className="text-sm font-medium text-white">Server Info</p>
-            <p className="text-xs" style={{ color: "#6b6b70" }}>System and Docker environment details</p>
+            <p className="text-xs" style={{ color: "#a1a1aa" }}>System and Docker environment details</p>
           </div>
         </div>
         <div style={{ background: "#0d0d0f" }}>
@@ -189,10 +189,10 @@ export default function SettingsPage() {
           <Shield className="h-4 w-4" style={{ color: "#f59e0b" }} />
           <p className="text-sm font-medium" style={{ color: "#f59e0b" }}>Security</p>
         </div>
-        <p className="text-xs" style={{ color: "#a08030" }}>
+        <p className="text-xs" style={{ color: "#b45309" }}>
           DockSurgeon has full access to your Docker socket, which is equivalent to root access on the host.
         </p>
-        <ul className="space-y-1.5 text-xs" style={{ color: "#a08030" }}>
+        <ul className="space-y-1.5 text-xs" style={{ color: "#b45309" }}>
           <li className="flex items-start gap-2">
             <span className="mt-1.5 h-1 w-1 rounded-full shrink-0" style={{ background: "#f59e0b" }} />
             Keep port 4242 firewalled — do not expose it directly to the internet
@@ -214,8 +214,8 @@ export default function SettingsPage() {
 function InfoRow({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex items-center justify-between px-5 py-3 gap-4" style={{ borderBottom: "1px solid #1c1c20" }}>
-      <span className="text-xs shrink-0" style={{ color: "#6b6b70" }}>{label}</span>
-      <span className={`text-xs text-right truncate ${mono ? "font-mono" : ""}`} style={{ color: "#a0a0a6" }}>
+      <span className="text-xs shrink-0" style={{ color: "#a1a1aa" }}>{label}</span>
+      <span className={`text-xs text-right truncate ${mono ? "font-mono" : ""}`} style={{ color: "#d4d4d8" }}>
         {value}
       </span>
     </div>

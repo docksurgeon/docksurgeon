@@ -73,13 +73,13 @@ export default function StoragePage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-white tracking-tight">Storage</h1>
-          <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>Disk and Docker storage analysis</p>
+          <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>Disk and Docker storage analysis</p>
         </div>
         <button
           onClick={load}
           disabled={loading}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors"
-          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
           Refresh
@@ -93,7 +93,7 @@ export default function StoragePage() {
         </div>
       ) : health?.disk && health.disk.length > 0 ? (
         <div>
-          <p className="text-xs font-medium uppercase tracking-widest mb-3" style={{ color: "#3a3a40" }}>Disk Mounts</p>
+          <p className="text-xs font-medium uppercase tracking-widest mb-3" style={{ color: "#71717a" }}>Disk Mounts</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {health.disk.map((disk) => (
               <DiskCard key={disk.mountpoint} disk={disk} />
@@ -117,13 +117,13 @@ export default function StoragePage() {
       ) : breakdown ? (
         <>
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest mb-3" style={{ color: "#3a3a40" }}>Docker Storage</p>
+            <p className="text-xs font-medium uppercase tracking-widest mb-3" style={{ color: "#71717a" }}>Docker Storage</p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {/* Donut */}
               <div className="rounded-xl p-5" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
                 {donutData.length > 0
                   ? <StorageDonut data={donutData} />
-                  : <p className="text-sm text-center py-8" style={{ color: "#6b6b70" }}>No Docker storage data</p>
+                  : <p className="text-sm text-center py-8" style={{ color: "#a1a1aa" }}>No Docker storage data</p>
                 }
               </div>
 
@@ -159,20 +159,20 @@ function DiskCard({ disk }: { disk: DiskMount }) {
   return (
     <div className="rounded-xl p-4 space-y-3" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
       <div className="flex items-center gap-2">
-        <HardDrive className="h-4 w-4 shrink-0" style={{ color: "#6b6b70" }} />
+        <HardDrive className="h-4 w-4 shrink-0" style={{ color: "#a1a1aa" }} />
         <div className="flex-1 min-w-0">
           <p className="text-xs font-mono font-medium truncate" style={{ color: "#f0f0f3" }}>{device}</p>
-          <p className="text-[11px] font-mono truncate" style={{ color: "#6b6b70" }}>{disk.mountpoint}</p>
+          <p className="text-[11px] font-mono truncate" style={{ color: "#a1a1aa" }}>{disk.mountpoint}</p>
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
-          <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: mounted ? "rgba(16,185,129,0.1)" : "rgba(160,160,166,0.1)", color: mounted ? "#10b981" : "#a0a0a6", border: mounted ? "1px solid rgba(16,185,129,0.2)" : "1px solid rgba(160,160,166,0.2)" }}>{mounted ? "mounted" : "unmounted"}</span>
+          <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: mounted ? "rgba(16,185,129,0.1)" : "rgba(160,160,166,0.1)", color: mounted ? "#10b981" : "#d4d4d8", border: mounted ? "1px solid rgba(16,185,129,0.2)" : "1px solid rgba(160,160,166,0.2)" }}>{mounted ? "mounted" : "unmounted"}</span>
           <span className="text-xs font-mono" style={{ color: danger ? "#ef4444" : "#f0f0f3" }}>{pct}%</span>
         </div>
       </div>
       <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "#1a1a1e" }}>
         <div className="h-full rounded-full transition-all" style={{ width: `${Math.min(pct, 100)}%`, background: barColor }} />
       </div>
-      <div className="flex justify-between text-xs" style={{ color: "#6b6b70" }}>
+      <div className="flex justify-between text-xs" style={{ color: "#a1a1aa" }}>
         <span>{mounted ? `${formatBytes(disk.used)} used` : "No usage data"}</span>
         <span>{mounted ? `${formatBytes(disk.available)} free · ` : ""}{formatBytes(disk.total)} total</span>
       </div>
@@ -188,9 +188,9 @@ function StorageStat({ label, count, bytes, color }: { label: string; count: num
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-white">{label}</p>
-        <p className="text-xs" style={{ color: "#6b6b70" }}>{count} items</p>
+        <p className="text-xs" style={{ color: "#a1a1aa" }}>{count} items</p>
       </div>
-      <p className="text-sm font-mono font-medium tabular-nums" style={{ color: bytes > 0 ? "#f0f0f3" : "#3a3a40" }}>
+      <p className="text-sm font-mono font-medium tabular-nums" style={{ color: bytes > 0 ? "#f0f0f3" : "#71717a" }}>
         {formatBytes(bytes)}
       </p>
     </div>
@@ -203,16 +203,16 @@ function TopList({ title, items, color }: { title: string; items: { name: string
     <div className="rounded-xl p-5 space-y-4" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
       <p className="text-sm font-medium text-white">{title}</p>
       {items.length === 0
-        ? <p className="text-sm" style={{ color: "#6b6b70" }}>None found</p>
+        ? <p className="text-sm" style={{ color: "#a1a1aa" }}>None found</p>
         : <div className="space-y-2.5">
             {items.map((item, i) => (
               <div key={i} className="space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
-                    <span className="text-xs font-mono truncate" style={{ color: "#a0a0a6" }}>{item.name}</span>
+                    <span className="text-xs font-mono truncate" style={{ color: "#d4d4d8" }}>{item.name}</span>
                     {item.inUse && <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ background: "rgba(16,185,129,0.1)", color: "#10b981", border: "1px solid rgba(16,185,129,0.2)" }}>in use</span>}
                   </div>
-                  <span className="text-xs font-mono tabular-nums shrink-0" style={{ color: "#6b6b70" }}>{formatBytes(item.bytes)}</span>
+                  <span className="text-xs font-mono tabular-nums shrink-0" style={{ color: "#a1a1aa" }}>{formatBytes(item.bytes)}</span>
                 </div>
                 <div className="h-1 rounded-full overflow-hidden" style={{ background: "#1a1a1e" }}>
                   <div className="h-full rounded-full" style={{ width: `${formatPercent(item.bytes, max)}%`, background: color, opacity: 0.75 }} />

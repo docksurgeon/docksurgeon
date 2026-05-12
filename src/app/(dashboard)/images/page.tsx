@@ -58,7 +58,7 @@ export default function ImagesPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold text-white tracking-tight">Images</h1>
-          <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>
+          <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>
             {loading ? "Loading..." : `${images.length} images · ${formatBytes(totalSize)} total · ${unused} unused`}
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function ImagesPage() {
           onClick={load}
           disabled={loading}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors"
-          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+          style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
         >
           <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
           Refresh
@@ -85,11 +85,11 @@ export default function ImagesPage() {
         <table className="w-full text-sm">
           <thead>
             <tr style={{ background: "#111114", borderBottom: "1px solid #1c1c20" }}>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Image</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>ID</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Size</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Created</th>
-              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#3a3a40" }}>Status</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Image</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>ID</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Size</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Created</th>
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider" style={{ color: "#71717a" }}>Status</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -106,7 +106,7 @@ export default function ImagesPage() {
               ))
             ) : images.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-sm" style={{ color: "#6b6b70" }}>
+                <td colSpan={6} className="px-4 py-10 text-center text-sm" style={{ color: "#a1a1aa" }}>
                   No images found
                 </td>
               </tr>
@@ -120,16 +120,16 @@ export default function ImagesPage() {
                   onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                 >
                   <td className="px-4 py-3 max-w-[200px]">
-                    <p className="font-mono text-xs truncate" style={{ color: img.tags[0] ? "#f0f0f3" : "#3a3a40" }}>
+                    <p className="font-mono text-xs truncate" style={{ color: img.tags[0] ? "#f0f0f3" : "#71717a" }}>
                       {img.tags[0] ?? "<none>"}
                     </p>
                     {img.tags.length > 1 && (
-                      <p className="text-[10px]" style={{ color: "#3a3a40" }}>+{img.tags.length - 1} more</p>
+                      <p className="text-[10px]" style={{ color: "#71717a" }}>+{img.tags.length - 1} more</p>
                     )}
                   </td>
-                  <td className="px-4 py-3 font-mono text-xs" style={{ color: "#6b6b70" }}>{img.shortId}</td>
-                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "#a0a0a6" }}>{formatBytes(img.size)}</td>
-                  <td className="px-4 py-3 text-xs" style={{ color: "#6b6b70" }}>
+                  <td className="px-4 py-3 font-mono text-xs" style={{ color: "#a1a1aa" }}>{img.shortId}</td>
+                  <td className="px-4 py-3 text-xs tabular-nums" style={{ color: "#d4d4d8" }}>{formatBytes(img.size)}</td>
+                  <td className="px-4 py-3 text-xs" style={{ color: "#a1a1aa" }}>
                     {new Date(img.created * 1000).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3">
@@ -138,7 +138,7 @@ export default function ImagesPage() {
                         in use
                       </span>
                     ) : (
-                      <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "#1a1a1e", color: "#6b6b70", border: "1px solid #222226" }}>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: "#1a1a1e", color: "#a1a1aa", border: "1px solid #222226" }}>
                         unused
                       </span>
                     )}
@@ -151,11 +151,11 @@ export default function ImagesPage() {
                       className="h-7 w-7 rounded-lg flex items-center justify-center transition-colors"
                       style={{
                         background: "transparent",
-                        color: img.inUse || deleting === img.id ? "#3a3a40" : "#6b6b70",
+                        color: img.inUse || deleting === img.id ? "#71717a" : "#a1a1aa",
                         cursor: img.inUse ? "not-allowed" : "pointer",
                       }}
                       onMouseEnter={(e) => { if (!img.inUse) e.currentTarget.style.color = "#f87171"; }}
-                      onMouseLeave={(e) => { if (!img.inUse) e.currentTarget.style.color = "#6b6b70"; }}
+                      onMouseLeave={(e) => { if (!img.inUse) e.currentTarget.style.color = "#a1a1aa"; }}
                     >
                       {deleting === img.id
                         ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -178,19 +178,19 @@ export default function ImagesPage() {
                 <AlertTriangle className="h-4 w-4 shrink-0" style={{ color: "#f59e0b" }} />
                 <h3 className="text-sm font-medium text-white">Remove image?</h3>
               </div>
-              <button onClick={() => setConfirm(null)} style={{ color: "#6b6b70" }}>
+              <button onClick={() => setConfirm(null)} style={{ color: "#a1a1aa" }}>
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <p className="text-sm" style={{ color: "#6b6b70" }}>
-              <span className="font-mono" style={{ color: "#a0a0a6" }}>{confirm.tags[0] ?? confirm.shortId}</span>
+            <p className="text-sm" style={{ color: "#a1a1aa" }}>
+              <span className="font-mono" style={{ color: "#d4d4d8" }}>{confirm.tags[0] ?? confirm.shortId}</span>
               {" "}({formatBytes(confirm.size)}) will be permanently deleted.
             </p>
             <div className="flex gap-2 pt-1">
               <button
                 onClick={() => setConfirm(null)}
                 className="flex-1 py-2 rounded-lg text-sm transition-colors"
-                style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#a0a0a6" }}
+                style={{ background: "#1a1a1e", border: "1px solid #222226", color: "#d4d4d8" }}
               >
                 Cancel
               </button>

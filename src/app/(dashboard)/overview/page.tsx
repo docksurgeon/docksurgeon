@@ -67,7 +67,7 @@ export default function OverviewPage() {
     <div className="p-6 space-y-6">
       <div>
         <h1 className="text-xl font-semibold text-white tracking-tight">Overview</h1>
-        <p className="text-sm mt-0.5" style={{ color: "#6b6b70" }}>Server health and Docker storage</p>
+        <p className="text-sm mt-0.5" style={{ color: "#a1a1aa" }}>Server health and Docker storage</p>
       </div>
 
       {healthLoading ? <HealthCardsSkeleton /> :
@@ -79,9 +79,9 @@ export default function OverviewPage() {
         <div className="rounded-xl p-5 space-y-4" style={{ background: "#111114", border: "1px solid #1c1c20" }}>
           <div className="flex items-center justify-between">
             <p className="text-sm font-medium text-white">Docker Storage</p>
-            <Link href="/storage" className="flex items-center gap-1 text-xs transition-colors" style={{ color: "#6b6b70" }}
+            <Link href="/storage" className="flex items-center gap-1 text-xs transition-colors" style={{ color: "#a1a1aa" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#6ee7b7")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#6b6b70")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#a1a1aa")}
             >
               Details <ArrowRight className="h-3 w-3" />
             </Link>
@@ -97,8 +97,8 @@ export default function OverviewPage() {
             <StorageDonut data={donutData} />
           ) : (
             <div className="flex flex-col items-center justify-center py-10 text-center">
-              <p className="text-sm" style={{ color: "#6b6b70" }}>No storage data available</p>
-              <p className="text-xs mt-1" style={{ color: "#3a3a40" }}>Docker socket may need additional permissions</p>
+              <p className="text-sm" style={{ color: "#a1a1aa" }}>No storage data available</p>
+              <p className="text-xs mt-1" style={{ color: "#71717a" }}>Docker socket may need additional permissions</p>
             </div>
           )}
         </div>
@@ -145,13 +145,13 @@ function QuickAction({ href, icon: Icon, label, sub }: {
       onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#1c1c20"; }}
     >
       <div className="rounded-lg p-1.5 shrink-0" style={{ background: "#1a1a1e", border: "1px solid #222226" }}>
-        <Icon className="h-4 w-4" style={{ color: "#6b6b70" }} />
+        <Icon className="h-4 w-4" style={{ color: "#a1a1aa" }} />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium" style={{ color: "#f0f0f3" }}>{label}</p>
-        <p className="text-xs truncate" style={{ color: "#3a3a40" }}>{sub}</p>
+        <p className="text-xs truncate" style={{ color: "#71717a" }}>{sub}</p>
       </div>
-      <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: "#3a3a40" }} />
+      <ArrowRight className="h-3.5 w-3.5 shrink-0" style={{ color: "#71717a" }} />
     </Link>
   );
 }

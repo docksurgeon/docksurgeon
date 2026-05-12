@@ -32,7 +32,7 @@ export function Sidebar() {
 
       {/* Nav */}
       <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
-        <p className="px-3 pt-2 pb-1 text-[10px] font-medium uppercase tracking-widest" style={{ color: "#3a3a40" }}>
+        <p className="px-3 pt-2 pb-1 text-[10px] font-medium uppercase tracking-widest" style={{ color: "#71717a" }}>
           Navigation
         </p>
         {nav.map(({ href, label, icon: Icon }) => {
@@ -49,7 +49,7 @@ export function Sidebar() {
               )}
               style={active
                 ? { background: "rgba(62,207,142,0.08)", border: "1px solid rgba(62,207,142,0.18)" }
-                : { color: "#6b6b70", border: "1px solid transparent" }
+                : { color: "#a1a1aa", border: "1px solid transparent" }
               }
             >
               <Icon className="h-[15px] w-[15px] shrink-0" />
@@ -69,16 +69,19 @@ export function Sidebar() {
           )}
           style={pathname === "/settings"
             ? { background: "rgba(62,207,142,0.08)", border: "1px solid rgba(62,207,142,0.18)", color: "#6ee7b7" }
-            : { color: "#6b6b70", border: "1px solid transparent" }
+            : { color: "#a1a1aa", border: "1px solid transparent" }
           }
         >
           <Settings className="h-[15px] w-[15px]" />
           <span className="font-medium">Settings</span>
         </Link>
         <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
+          onClick={async () => {
+            await signOut({ redirect: false });
+            window.location.href = "/login";
+          }}
           className="w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-all hover:text-red-400"
-          style={{ color: "#6b6b70", border: "1px solid transparent" }}
+          style={{ color: "#a1a1aa", border: "1px solid transparent" }}
         >
           <LogOut className="h-[15px] w-[15px]" />
           <span className="font-medium">Sign out</span>

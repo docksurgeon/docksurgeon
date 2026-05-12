@@ -12,9 +12,11 @@ export const authConfig = {
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // SaaS Logic: Always prefer the current URL's origin to avoid localhost redirects
-      if (url.startsWith("/")) return `${new URL(url, baseUrl).origin}${url}`;
-      return url;
+      // Allow relative paths
+      if (url.startsWith("/")) return url;
+      // Allow only same-origin absolute URLs
+      if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
